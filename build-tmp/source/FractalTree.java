@@ -1,6 +1,22 @@
-private double fractionLength = .8; 
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class FractalTree extends PApplet {
+
+private double fractionLength = .8f; 
 private int smallestBranch = 10; 
-private double branchAngle = .5; 
+private double branchAngle = .5f; 
 SnowFlake [] snow; 
 public void setup() 
 {   
@@ -40,8 +56,8 @@ public void drawBranches(int x,int y, double branchLength, double angle, double 
 	line(x, y, endX2, endY2);
 
 	if (branchLength > smallestBranch){
-		drawBranches(endX1, endY1, branchLength, angle1, strWeight/1.2);
-		drawBranches(endX2, endY2, branchLength, angle2, strWeight/1.2);
+		drawBranches(endX1, endY1, branchLength, angle1, strWeight/1.2f);
+		drawBranches(endX2, endY2, branchLength, angle2, strWeight/1.2f);
 	}
 } 
 
@@ -58,26 +74,35 @@ class SnowFlake
     myY = (int)(Math.random()*600);
     isMoving = true;
   }
-  void show()
+  public void show()
   {
     //your code here
     noStroke();
     ellipse(myX,myY,2,2);
   }
 
-  void move()
+  public void move()
   {
     //your code here
     if (isMoving == true){
       myY = myY + 1;
     } 
   }
-  void wrap()
+  public void wrap()
   {
     //your code here
     if (myY > 585){
       myY = 0;
       myX = (int)(Math.random()*1200);      
+    }
+  }
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "FractalTree" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
     }
   }
 }
